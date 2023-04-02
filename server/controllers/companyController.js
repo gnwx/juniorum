@@ -31,7 +31,7 @@ const signupCompany = async (req, res) => {
       socials
     );
     const token = createToken(company._id);
-    res.status(200).json({ email, token });
+    res.status(200).json({ email, socials, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

@@ -30,8 +30,8 @@ const companySchema = new Schema({
     required: true,
   },
   socails: {
-    type: Array,
-    required: true,
+    type: [String],
+    default: [],
   },
 });
 
