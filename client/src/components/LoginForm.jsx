@@ -1,16 +1,16 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { loginValidation } from "../helpers/loginValidation";
+import { useLogin } from "../hooks/useLogin";
 const LoginForm = () => {
+  const { login, error, isLoading } = useLogin();
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       validationSchema={loginValidation}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log(values);
-          setSubmitting(false);
-        }, 400);
+      onSubmit={(values) => {
+        login(values);
       }}
     >
       <Form>
@@ -22,7 +22,10 @@ const LoginForm = () => {
         <Field name="password" type="password" />
         <ErrorMessage name="password" />
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isLoading}>
+          Submit
+        </button>
+        {error && <div>{error} </div>}
       </Form>
     </Formik>
   );

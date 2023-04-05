@@ -1,20 +1,25 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { signupValidation } from "../helpers/signupValidation";
+import { useSignup } from "../hooks/useSignup";
 
 const SignupForm = () => {
+  const { signup, isLoading, error } = useSignup();
+
   return (
     <Formik
       initialValues={{
         name: "",
         email: "",
         password: "",
+        description: "",
         employees: 0,
         location: "",
       }}
       validationSchema={signupValidation}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={(values, { resetForm }) => {
+        signup(values);
+        resetForm();
       }}
     >
       <Form>
@@ -30,6 +35,10 @@ const SignupForm = () => {
         <Field name="password" type="password" />
         <ErrorMessage name="password" />
 
+        <label htmlFor="description">Description</label>
+        <Field name="description" type="text" />
+        <ErrorMessage name="description" />
+
         <label htmlFor="employees">Employee Number</label>
         <Field name="employees" type="number" />
         <ErrorMessage name="employees" />
@@ -38,7 +47,10 @@ const SignupForm = () => {
         <Field name="location" type="text" />
         <ErrorMessage name="location" />
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isLoading}>
+          Submit
+        </button>
+        {error && <div>{error} </div>}
       </Form>
     </Formik>
   );
