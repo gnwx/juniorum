@@ -8,6 +8,7 @@ const getPosts = async (req, res) => {
 
 const getPost = async (req, res) => {
   const { id } = req.params;
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "Invalid ID!" });
   }
@@ -21,7 +22,15 @@ const getPost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const { position, requirements, type, salary, location, company } = req.body;
+  const {
+    position,
+    requirements,
+    type,
+    salary,
+    location,
+    contactEmail,
+    company,
+  } = req.body;
   try {
     const job = await Post.create({
       position,
@@ -29,6 +38,7 @@ const createPost = async (req, res) => {
       type,
       salary,
       location,
+      contactEmail,
       company,
     });
     res.status(200).json({ job });

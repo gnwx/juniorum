@@ -10,15 +10,23 @@ const loginCompany = async (req, res) => {
   try {
     const company = await Company.login(email, password);
     const token = createToken(Company._id);
-    res.status(200).json({ email, token });
+    res.status(200).json({ company, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
 const signupCompany = async (req, res) => {
-  const { name, email, password, description, employees, location, socials } =
-    req.body;
+  const {
+    name,
+    email,
+    password,
+    description,
+    employees,
+    location,
+    /*  socials, */
+    /*  image, */
+  } = req.body;
 
   try {
     const company = await Company.signup(
@@ -27,11 +35,12 @@ const signupCompany = async (req, res) => {
       password,
       description,
       employees,
-      location,
-      socials
+      location
+      /*  socials, */
+      /* image */
     );
     const token = createToken(company._id);
-    res.status(200).json({ email, socials, token });
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

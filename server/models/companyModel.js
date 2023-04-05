@@ -29,10 +29,13 @@ const companySchema = new Schema({
     type: String,
     required: true,
   },
-  socails: {
+  /*   socails: {
     type: [String],
     default: [],
-  },
+  }, */
+  /*  image: {
+    type: String,
+  }, */
 });
 
 companySchema.statics.signup = async function (
@@ -41,9 +44,15 @@ companySchema.statics.signup = async function (
   password,
   description,
   employees,
-  location,
-  socials
+  location
+  /*  socials, */
+  /*  image */
 ) {
+  const existingCompany = await this.findOne({ name });
+  if (existingCompany) {
+    throw new Error("A company with this name already exists");
+  }
+
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
@@ -54,7 +63,8 @@ companySchema.statics.signup = async function (
     description,
     employees,
     location,
-    socials,
+    /*   socials, */
+    /*  image, */
   });
 
   return company;
