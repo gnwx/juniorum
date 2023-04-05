@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -19,7 +18,6 @@ export const useLogin = () => {
       setError(json.error);
     }
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(json));
       setIsLoading(false);
     }
   };
