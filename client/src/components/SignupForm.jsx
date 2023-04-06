@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { signupValidation } from "../helpers/signupValidation";
-import { useSignup } from "../hooks/useSignup";
 
+import { useSignup } from "../hooks/useSignup";
+import { useConvertToBase64 } from "../hooks/useConvertToBase64";
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
+  const { convertToBase64, photoBase64 } = useConvertToBase64();
 
   return (
     <Formik
@@ -17,14 +22,19 @@ const SignupForm = () => {
         description: "",
         employees: 0,
         location: "",
+        photo: null,
       }}
       validationSchema={signupValidation}
-      onSubmit={(values, { resetForm }) => {
-        signup(values);
+      onSubmit={(values, { resetForm, setSubmitting }) => {
+        const updatedValues = {
+          ...values,
+          photo: photoBase64,
+        };
+        signup(updatedValues);
         resetForm();
       }}
     >
-      {({ errors, touched, getFieldProps, isSubmitting }) => (
+      {({ errors, touched, getFieldProps, setFieldValue }) => (
         <Form>
           <TextField
             {...getFieldProps("name")}
@@ -81,14 +91,42 @@ const SignupForm = () => {
             error={touched.location && Boolean(errors.location)}
             helperText={touched.location && errors.location}
           />
+          <Field name="photo">
+            {({ field }) => (
+              <div>
+                <input
+                  accept="image/*"
+                  type="file"
+                  id="photo-input"
+                  hidden
+                  onChange={(event) => {
+                    convertToBase64(event);
+                    setFieldValue("photo", event.currentTarget.files[0]);
+                  }}
+                />
+                <label htmlFor="photo-input">
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+                {errors.photo && touched.photo && (
+                  <div className="error">{errors.photo}</div>
+                )}
+              </div>
+            )}
+          </Field>
 
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            disabled={isSubmitting}
+            disabled={isLoading}
           >
-            Submit
+            Sign up!
           </Button>
 
           {error && <div>{error} </div>}

@@ -19,10 +19,9 @@ export const useSignup = () => {
       setError(json.error);
     }
     if (response.ok) {
+      setIsLoading(false);
       console.log("Company Created");
       console.log(json);
-
-      setIsLoading(false);
     }
   };
 
