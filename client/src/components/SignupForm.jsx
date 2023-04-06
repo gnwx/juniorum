@@ -20,12 +20,14 @@ const SignupForm = () => {
         email: "",
         password: "",
         description: "",
-        employees: 0,
+        employees: "",
         location: "",
+        link: "",
+
         photo: null,
       }}
       validationSchema={signupValidation}
-      onSubmit={(values, { resetForm, setSubmitting }) => {
+      onSubmit={(values, { resetForm }) => {
         const updatedValues = {
           ...values,
           photo: photoBase64,
@@ -38,7 +40,7 @@ const SignupForm = () => {
         <Form>
           <TextField
             {...getFieldProps("name")}
-            label="Name"
+            label="Company Name*"
             variant="outlined"
             fullWidth
             error={touched.name && Boolean(errors.name)}
@@ -47,7 +49,7 @@ const SignupForm = () => {
 
           <TextField
             {...getFieldProps("email")}
-            label="Email"
+            label="Contact Email*"
             variant="outlined"
             fullWidth
             error={touched.email && Boolean(errors.email)}
@@ -56,7 +58,7 @@ const SignupForm = () => {
 
           <TextField
             {...getFieldProps("password")}
-            label="Password"
+            label="Password*"
             variant="outlined"
             type="password"
             fullWidth
@@ -66,7 +68,8 @@ const SignupForm = () => {
 
           <TextField
             {...getFieldProps("description")}
-            label="Description"
+            multiline
+            label="Description*"
             variant="outlined"
             fullWidth
             error={touched.description && Boolean(errors.description)}
@@ -75,7 +78,7 @@ const SignupForm = () => {
 
           <TextField
             {...getFieldProps("employees")}
-            label="Employee Number"
+            label="Employee Number*"
             variant="outlined"
             type="number"
             fullWidth
@@ -85,11 +88,19 @@ const SignupForm = () => {
 
           <TextField
             {...getFieldProps("location")}
-            label="Location"
+            label="Location*"
             variant="outlined"
             fullWidth
             error={touched.location && Boolean(errors.location)}
             helperText={touched.location && errors.location}
+          />
+          <TextField
+            {...getFieldProps("link")}
+            label="LinkedIn or website"
+            variant="outlined"
+            fullWidth
+            error={touched.link && Boolean(errors.link)}
+            helperText={touched.link && errors.link}
           />
           <Field name="photo">
             {({ field }) => (
