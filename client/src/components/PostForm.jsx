@@ -25,7 +25,7 @@ const PostForm = () => {
         resetForm();
       }}
     >
-      {({ errors, touched, getFieldProps, isSubmitting }) => (
+      {({ errors, touched, getFieldProps }) => (
         <Form>
           <TextField
             {...getFieldProps("contactEmail")}
@@ -89,7 +89,7 @@ const PostForm = () => {
             color="primary"
             disabled={isLoading}
           >
-            Submit
+            Create job
           </Button>
         </Form>
       )}

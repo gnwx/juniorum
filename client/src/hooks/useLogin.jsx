@@ -19,7 +19,9 @@ export const useLogin = () => {
     }
     if (response.ok) {
       setIsLoading(false);
-      localStorage.setItem("company", JSON.stringify(json.company._id));
+      console.log(json.token);
+      sessionStorage.setItem("JWT_TOKEN", JSON.stringify(json.token));
+      /* localStorage.setItem("company", JSON.stringify(json.company._id)); */
     }
   };
 
