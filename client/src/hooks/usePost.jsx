@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-export const useSignup = () => {
+export const usePost = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
 
-  const signup = async (values) => {
+  const post = async (values) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/company/signup", {
+    const response = await fetch("http://localhost:4000/api/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -19,12 +19,11 @@ export const useSignup = () => {
       setError(json.error);
     }
     if (response.ok) {
-      console.log("Company Created");
-      console.log(json);
-
       setIsLoading(false);
+      console.log("Post created!");
+      console.log(json);
     }
   };
 
-  return { signup, isLoading, error };
+  return { post, isLoading, error };
 };

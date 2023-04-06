@@ -16,7 +16,7 @@ const LoginForm = () => {
         login(values);
       }}
     >
-      {({ errors, touched, getFieldProps, isSubmitting }) => (
+      {({ errors, touched, getFieldProps }) => (
         <Form>
           <TextField
             size="small"
@@ -43,7 +43,7 @@ const LoginForm = () => {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={isSubmitting}
+            disabled={isLoading}
           >
             Login
           </Button>

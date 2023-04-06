@@ -19,6 +19,7 @@ export const useLogin = () => {
     }
     if (response.ok) {
       setIsLoading(false);
+      localStorage.setItem("company", JSON.stringify(json.company._id));
     }
   };
 
