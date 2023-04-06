@@ -33,9 +33,9 @@ const companySchema = new Schema({
     type: [String],
     default: [],
   }, */
-  /*  image: {
+  photo: {
     type: String,
-  }, */
+  },
 });
 
 companySchema.statics.signup = async function (
@@ -44,9 +44,9 @@ companySchema.statics.signup = async function (
   password,
   description,
   employees,
-  location
+  location,
   /*  socials, */
-  /*  image */
+  photo
 ) {
   const existingCompany = await this.findOne({ name });
   if (existingCompany) {
@@ -64,7 +64,7 @@ companySchema.statics.signup = async function (
     employees,
     location,
     /*   socials, */
-    /*  image, */
+    photo,
   });
 
   return company;

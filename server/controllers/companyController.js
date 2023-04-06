@@ -5,6 +5,19 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
+const getCompanies = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const company = await Company.findById(id).select("-password");
+    if (!company) {
+      return res.status(404).json({ message: "Company not found!" });
+    }
+    res.json(company);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 const loginCompany = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -25,7 +38,7 @@ const signupCompany = async (req, res) => {
     employees,
     location,
     /*  socials, */
-    /*  image, */
+    photo,
   } = req.body;
 
   try {
@@ -35,9 +48,8 @@ const signupCompany = async (req, res) => {
       password,
       description,
       employees,
-      location
-      /*  socials, */
-      /* image */
+      location /*  socials, */,
+      photo
     );
     const token = createToken(company._id);
     res.status(200).json({ email, token });
@@ -45,4 +57,4 @@ const signupCompany = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-module.exports = { signupCompany, loginCompany };
+module.exports = { signupCompany, loginCompany, getCompanies };
