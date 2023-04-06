@@ -29,64 +29,12 @@ const companySchema = new Schema({
     type: String,
     required: true,
   },
-  /*   socails: {
-    type: [String],
-    default: [],
-  }, */
+  link: {
+    type: String,
+  },
   photo: {
     type: String,
   },
 });
-
-companySchema.statics.signup = async function (
-  name,
-  email,
-  password,
-  description,
-  employees,
-  location,
-  /*  socials, */
-  photo
-) {
-  const existingCompany = await this.findOne({ name });
-  if (existingCompany) {
-    throw new Error("A company with this name already exists");
-  }
-
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-
-  const company = await this.create({
-    name,
-    email,
-    password: hash,
-    description,
-    employees,
-    location,
-    /*   socials, */
-    photo,
-  });
-
-  return company;
-};
-
-companySchema.statics.login = async function (email, password) {
-  if (!email || !password) {
-    throw Error("All fields must be filled!");
-  }
-
-  const company = await this.findOne({ email });
-
-  if (!company) {
-    throw Error("Invalid email");
-  }
-
-  const match = await bcrypt.compare(password, company.password);
-  if (!match) {
-    throw Error("Incorrect password!");
-  }
-
-  return company;
-};
 
 module.exports = mongoose.model("Company", companySchema);

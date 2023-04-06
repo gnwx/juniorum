@@ -22,15 +22,8 @@ const getPost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const {
-    position,
-    requirements,
-    type,
-    salary,
-    location,
-    contactEmail,
-    company,
-  } = req.body;
+  const { position, requirements, type, salary, location, contactEmail } =
+    req.body;
   try {
     const job = await Post.create({
       position,
@@ -39,7 +32,7 @@ const createPost = async (req, res) => {
       salary,
       location,
       contactEmail,
-      company,
+      company: req.company,
     });
     res.status(200).json({ job });
   } catch (error) {

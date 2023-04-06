@@ -1,4 +1,6 @@
 const express = require("express");
+const auth = require("../middleware/auth");
+
 const {
   getPosts,
   getPost,
@@ -14,11 +16,11 @@ router.get("/", getPosts);
 // get single job
 router.get("/:id", getPost);
 // post new job
-router.post("/", createPost);
+router.post("/", auth, createPost);
 // delete job
-router.delete("/:id", deletePost);
+router.delete("/:id", auth, deletePost);
 
 // update job
-router.patch("/:id", updatePost);
+router.patch("/:id", auth, updatePost);
 
 module.exports = router;
