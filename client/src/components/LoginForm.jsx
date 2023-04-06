@@ -1,5 +1,8 @@
 import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
+import { Formik, Form } from "formik";
 import { loginValidation } from "../helpers/loginValidation";
 import { useLogin } from "../hooks/useLogin";
 const LoginForm = () => {
@@ -13,20 +16,41 @@ const LoginForm = () => {
         login(values);
       }}
     >
-      <Form>
-        <label htmlFor="email">Email</label>
-        <Field name="email" type="text" />
-        <ErrorMessage name="email" />
+      {({ errors, touched, getFieldProps, isSubmitting }) => (
+        <Form>
+          <TextField
+            size="small"
+            {...getFieldProps("email")}
+            label="Email"
+            variant="outlined"
+            fullWidth
+            error={touched.email && Boolean(errors.email)}
+            helperText={touched.email && errors.email}
+          />
 
-        <label htmlFor="password">Password</label>
-        <Field name="password" type="password" />
-        <ErrorMessage name="password" />
+          <TextField
+            size="small"
+            {...getFieldProps("password")}
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            error={touched.password && Boolean(errors.password)}
+            helperText={touched.password && errors.password}
+          />
 
-        <button type="submit" disabled={isLoading}>
-          Submit
-        </button>
-        {error && <div>{error} </div>}
-      </Form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+          >
+            Login
+          </Button>
+
+          {error && <div>{error} </div>}
+        </Form>
+      )}
     </Formik>
   );
 };

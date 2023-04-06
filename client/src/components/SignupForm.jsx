@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { signupValidation } from "../helpers/signupValidation";
 import { useSignup } from "../hooks/useSignup";
@@ -22,36 +24,76 @@ const SignupForm = () => {
         resetForm();
       }}
     >
-      <Form>
-        <label htmlFor="name">Name</label>
-        <Field name="name" type="text" />
-        <ErrorMessage name="name" />
+      {({ errors, touched, getFieldProps, isSubmitting }) => (
+        <Form>
+          <TextField
+            {...getFieldProps("name")}
+            label="Name"
+            variant="outlined"
+            fullWidth
+            error={touched.name && Boolean(errors.name)}
+            helperText={touched.name && errors.name}
+          />
 
-        <label htmlFor="email">Email</label>
-        <Field name="email" type="email" />
-        <ErrorMessage name="email" />
+          <TextField
+            {...getFieldProps("email")}
+            label="Email"
+            variant="outlined"
+            fullWidth
+            error={touched.email && Boolean(errors.email)}
+            helperText={touched.email && errors.email}
+          />
 
-        <label htmlFor="password">Password</label>
-        <Field name="password" type="password" />
-        <ErrorMessage name="password" />
+          <TextField
+            {...getFieldProps("password")}
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            error={touched.password && Boolean(errors.password)}
+            helperText={touched.password && errors.password}
+          />
 
-        <label htmlFor="description">Description</label>
-        <Field name="description" type="text" />
-        <ErrorMessage name="description" />
+          <TextField
+            {...getFieldProps("description")}
+            label="Description"
+            variant="outlined"
+            fullWidth
+            error={touched.description && Boolean(errors.description)}
+            helperText={touched.description && errors.description}
+          />
 
-        <label htmlFor="employees">Employee Number</label>
-        <Field name="employees" type="number" />
-        <ErrorMessage name="employees" />
+          <TextField
+            {...getFieldProps("employees")}
+            label="Employee Number"
+            variant="outlined"
+            type="number"
+            fullWidth
+            error={touched.employees && Boolean(errors.employees)}
+            helperText={touched.employees && errors.employees}
+          />
 
-        <label htmlFor="location">Location</label>
-        <Field name="location" type="text" />
-        <ErrorMessage name="location" />
+          <TextField
+            {...getFieldProps("location")}
+            label="Location"
+            variant="outlined"
+            fullWidth
+            error={touched.location && Boolean(errors.location)}
+            helperText={touched.location && errors.location}
+          />
 
-        <button type="submit" disabled={isLoading}>
-          Submit
-        </button>
-        {error && <div>{error} </div>}
-      </Form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+          >
+            Submit
+          </Button>
+
+          {error && <div>{error} </div>}
+        </Form>
+      )}
     </Formik>
   );
 };
