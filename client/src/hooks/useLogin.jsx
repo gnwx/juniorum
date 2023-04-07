@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useAuthContext } from "./useAuthContext";
+
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+
+  const { setLogin } = useAuthContext();
 
   const login = async (values) => {
     setIsLoading(true);
@@ -9,7 +13,9 @@ export const useLogin = () => {
 
     const response = await fetch("http://localhost:4000/api/company/login/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(values),
     });
     const json = await response.json();
@@ -19,9 +25,8 @@ export const useLogin = () => {
     }
     if (response.ok) {
       setIsLoading(false);
-      console.log(json.token);
       sessionStorage.setItem("JWT_TOKEN", JSON.stringify(json.token));
-      /* localStorage.setItem("company", JSON.stringify(json.company._id)); */
+      setLogin(json.company);
     }
   };
 

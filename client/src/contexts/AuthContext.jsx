@@ -3,7 +3,9 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [company, setCompany] = useState(null);
+  const [company, setCompany] = useState(
+    null || sessionStorage.getItem("company")
+  );
 
   useEffect(() => {
     const storedCompany = JSON.parse(localStorage.getItem("company"));
@@ -12,16 +14,16 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (company) => {
+  const setLogin = (company) => {
     setCompany(company);
-    localStorage.setItem("company", JSON.stringify(company));
+    sessionStorage.setItem("company", JSON.stringify(company));
   };
 
-  const logout = () => {
+  const setLogout = () => {
     setCompany(null);
-    localStorage.removeItem("company");
+    sessionStorage.removeItem("company");
   };
 
-  const values = { company, login, logout };
+  const values = { company, setLogin, setLogout };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

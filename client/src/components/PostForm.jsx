@@ -57,6 +57,7 @@ const PostForm = () => {
 
           <TextField
             {...getFieldProps("requirements")}
+            multiline
             label="requirements"
             variant="outlined"
             fullWidth
