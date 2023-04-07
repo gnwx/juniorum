@@ -3,13 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 //routes
 const companyRoutes = require("./routes/company");
 const postsRoutes = require("./routes/posts");
 
 const app = express();
-
+//mid
 app.use(express.json({ limit: "1mb" }));
 app.use(cors());
 
