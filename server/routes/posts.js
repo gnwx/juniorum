@@ -1,6 +1,6 @@
 const express = require("express");
 const auth = require("../middleware/auth");
-
+const postValidation = require("../helpers/postValidation");
 const {
   getPosts,
   getPost,
@@ -16,7 +16,7 @@ router.get("/", getPosts);
 // get single job
 router.get("/:id", getPost);
 // post new job
-router.post("/", auth, createPost);
+router.post("/", auth, postValidation, createPost);
 // delete job
 router.delete("/:id", auth, deletePost);
 

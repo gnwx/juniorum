@@ -1,5 +1,6 @@
 const Post = require("../models/postModel");
 const mongoose = require("mongoose");
+const { validationResult } = require("express-validator");
 
 const getPosts = async (req, res) => {
   const posts = await Post.find({}).sort({ createdAt: -1 });
@@ -24,6 +25,12 @@ const getPost = async (req, res) => {
 const createPost = async (req, res) => {
   const { position, requirements, type, salary, location, contactEmail } =
     req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const job = await Post.create({
       position,
