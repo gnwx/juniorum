@@ -1,6 +1,6 @@
-import * as Yup from "yup";
+import * as Yup from "Yup";
 
-export const signupValidation = Yup.object().shape({
+export const signupValidation = Yup.object({
   name: Yup.string().required("Name is required."),
   email: Yup.string()
     .email("Email is not valid.")

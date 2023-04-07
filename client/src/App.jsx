@@ -1,9 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
+//pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import CreatePost from "./pages/CreatePost";
 import Jobs from "./pages/Jobs";
+
 import { useAuthContext } from "./hooks/useAuthContext";
 
 const App = () => {

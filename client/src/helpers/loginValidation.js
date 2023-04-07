@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from "Yup";
 
 export const loginValidation = Yup.object({
   email: Yup.string().email(),
