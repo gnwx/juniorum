@@ -29,7 +29,6 @@ const SignupForm = () => {
         employees: "",
         location: "",
         link: "",
-
         photo: null,
       }}
       validationSchema={signupValidation}
@@ -84,6 +83,7 @@ const SignupForm = () => {
 
           <Slider
             {...getFieldProps("employees")}
+            value={Number(getFieldProps("employees").value)}
             valueLabelDisplay="auto"
             step={10}
             marks
