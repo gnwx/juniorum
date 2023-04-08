@@ -1,6 +1,9 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { usePost } from "../hooks/usePost";
 import { postValidation } from "../helpers/postValidation";
@@ -8,6 +11,17 @@ const PostForm = () => {
   const { post, isLoading } = usePost();
 
   const company = JSON.parse(localStorage.getItem("company"));
+  const salaryOptions = [
+    { value: "1000-2000", label: "1000-2000" },
+    { value: "2000-3000", label: "2000-3000" },
+    { value: "3000-4000", label: "3000-4000" },
+    { value: "4000-5000", label: "4000-5000" },
+  ];
+  const typeOptions = [
+    { value: "Full-time", label: "Full-Time" },
+    { value: "Part-time", label: "Part-Time" },
+    { value: "Internship", label: "Internship" },
+  ];
   return (
     <Formik
       initialValues={{
@@ -15,7 +29,7 @@ const PostForm = () => {
         position: "",
         type: "",
         requirements: "",
-        salary: 0,
+        salary: "",
         location: "",
         company: company,
       }}
@@ -29,7 +43,7 @@ const PostForm = () => {
         <Form>
           <TextField
             {...getFieldProps("contactEmail")}
-            label="contactEmail"
+            label="Contact Email"
             variant="outlined"
             fullWidth
             error={touched.contactEmail && Boolean(errors.contactEmail)}
@@ -38,46 +52,59 @@ const PostForm = () => {
 
           <TextField
             {...getFieldProps("position")}
-            label="position"
+            label="Position"
             variant="outlined"
             fullWidth
             error={touched.position && Boolean(errors.position)}
             helperText={touched.position && errors.position}
           />
 
-          <TextField
-            {...getFieldProps("type")}
-            label="type"
-            variant="outlined"
-            type="text"
+          <Field
+            name="type"
+            as={Select}
             fullWidth
+            variant="outlined"
             error={touched.type && Boolean(errors.type)}
-            helperText={touched.type && errors.type}
-          />
+          >
+            {typeOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Field>
 
           <TextField
             {...getFieldProps("requirements")}
             multiline
-            label="requirements"
+            minRows={6}
+            maxRows={10}
+            label="Requirements"
             variant="outlined"
             fullWidth
             error={touched.requirements && Boolean(errors.requirements)}
             helperText={touched.requirements && errors.requirements}
           />
 
-          <TextField
-            {...getFieldProps("salary")}
-            label="salary"
-            variant="outlined"
-            type="number"
+          <Field
+            name="salary"
+            as={Select}
             fullWidth
+            variant="outlined"
             error={touched.salary && Boolean(errors.salary)}
-            helperText={touched.salary && errors.salary}
-          />
+          >
+            <MenuItem value="" disabled>
+              Select a salary range
+            </MenuItem>
+            {salaryOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                ${option.label}
+              </MenuItem>
+            ))}
+          </Field>
 
           <TextField
             {...getFieldProps("location")}
-            label="location"
+            label="Job location"
             variant="outlined"
             fullWidth
             error={touched.location && Boolean(errors.location)}

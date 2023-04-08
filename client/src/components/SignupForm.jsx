@@ -74,6 +74,7 @@ const SignupForm = () => {
           <TextField
             {...getFieldProps("description")}
             multiline
+            rows={5}
             label="Description*"
             variant="outlined"
             fullWidth
