@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 import { useAuthContext } from "../hooks/useAuthContext";
-
 const Navbar = () => {
   const { company, setLogout } = useAuthContext();
   return (

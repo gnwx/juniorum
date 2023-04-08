@@ -5,7 +5,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Autocomplete from "@mui/material/Autocomplete";
 
+import { options } from "../helpers/citiesAndCountries";
 import { Formik, Field, Form } from "formik";
 
 import { usePost } from "../hooks/usePost";
@@ -42,7 +44,7 @@ const PostForm = () => {
         resetForm();
       }}
     >
-      {({ errors, touched, getFieldProps, values }) => (
+      {({ errors, touched, getFieldProps, values, setFieldValue }) => (
         <Form>
           <TextField
             {...getFieldProps("contactEmail")}
@@ -106,13 +108,22 @@ const PostForm = () => {
             ))}
           </Field>
 
-          <TextField
-            {...getFieldProps("location")}
-            label="Job location"
-            variant="outlined"
-            fullWidth
-            error={touched.location && Boolean(errors.location)}
-            helperText={touched.location && errors.location}
+          <Autocomplete
+            freeSolo
+            options={options}
+            onChange={(event, value) => {
+              setFieldValue("location", value?.value || "");
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Job location"
+                variant="outlined"
+                fullWidth
+                error={touched.location && Boolean(errors.location)}
+                helperText={touched.location && errors.location}
+              />
+            )}
           />
 
           <Button
