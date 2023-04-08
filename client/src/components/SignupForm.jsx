@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+
+//mui elements
+import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+
+//icons
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
@@ -9,6 +14,7 @@ import { signupValidation } from "../helpers/signupValidation";
 
 import { useSignup } from "../hooks/useSignup";
 import { useConvertToBase64 } from "../hooks/useConvertToBase64";
+
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
   const { convertToBase64, photoBase64 } = useConvertToBase64();
@@ -76,14 +82,13 @@ const SignupForm = () => {
             helperText={touched.description && errors.description}
           />
 
-          <TextField
+          <Slider
             {...getFieldProps("employees")}
-            label="Employee Number*"
-            variant="outlined"
-            type="number"
-            fullWidth
-            error={touched.employees && Boolean(errors.employees)}
-            helperText={touched.employees && errors.employees}
+            valueLabelDisplay="auto"
+            step={10}
+            marks
+            min={10}
+            max={100}
           />
 
           <TextField
