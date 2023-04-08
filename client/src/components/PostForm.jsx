@@ -1,16 +1,19 @@
 import React from "react";
+
+//mui componenets
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
+
 import { usePost } from "../hooks/usePost";
 import { postValidation } from "../helpers/postValidation";
 const PostForm = () => {
   const { post, isLoading } = usePost();
 
-  const company = JSON.parse(localStorage.getItem("company"));
+  const company = JSON.parse(sessionStorage.getItem("company"));
   const salaryOptions = [
     { value: "1000-2000", label: "1000-2000" },
     { value: "2000-3000", label: "2000-3000" },
@@ -25,7 +28,7 @@ const PostForm = () => {
   return (
     <Formik
       initialValues={{
-        contactEmail: "",
+        contactEmail: company.email || "",
         position: "",
         type: "",
         requirements: "",
@@ -39,10 +42,11 @@ const PostForm = () => {
         resetForm();
       }}
     >
-      {({ errors, touched, getFieldProps }) => (
+      {({ errors, touched, getFieldProps, values }) => (
         <Form>
           <TextField
             {...getFieldProps("contactEmail")}
+            disabled={values.useSessionEmail}
             label="Contact Email"
             variant="outlined"
             fullWidth

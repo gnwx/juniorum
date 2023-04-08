@@ -6,27 +6,33 @@ import Signup from "./pages/Signup";
 import CreatePost from "./pages/CreatePost";
 import Jobs from "./pages/Jobs";
 
+//components
+import Navbar from "./components/Navbar";
+
 import { useAuthContext } from "./hooks/useAuthContext";
 
 const App = () => {
   const { company } = useAuthContext();
 
   return (
-    <Routes>
-      <Route path="/" element={<Jobs />} />
-      <Route
-        path="/login"
-        element={!company ? <Login /> : <Navigate to="/" />}
-      />
-      <Route
-        path="/signup"
-        element={!company ? <Signup /> : <Navigate to="/" />}
-      />
-      <Route
-        path="create"
-        element={company ? <CreatePost /> : <Navigate to="/login" />}
-      />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Jobs />} />
+        <Route
+          path="/login"
+          element={!company ? <Login /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/signup"
+          element={!company ? <Signup /> : <Navigate to="/" />}
+        />
+        <Route
+          path="create"
+          element={company ? <CreatePost /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </>
   );
 };
 
