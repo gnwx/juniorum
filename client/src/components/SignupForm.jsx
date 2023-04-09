@@ -14,6 +14,7 @@ import { signupValidation } from "../helpers/signupValidation";
 
 import { useSignup } from "../hooks/useSignup";
 import { useConvertToBase64 } from "../hooks/useConvertToBase64";
+import LocationInput from "./LocationInput";
 
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
@@ -41,7 +42,7 @@ const SignupForm = () => {
         resetForm();
       }}
     >
-      {({ errors, touched, getFieldProps, setFieldValue }) => (
+      {({ values, errors, touched, getFieldProps, setFieldValue }) => (
         <Form>
           <TextField
             {...getFieldProps("name")}
@@ -92,11 +93,11 @@ const SignupForm = () => {
             max={100}
           />
 
-          <TextField
-            {...getFieldProps("location")}
-            label="Location*"
-            variant="outlined"
-            fullWidth
+          <LocationInput
+            value={values.location}
+            onChange={(value) => {
+              setFieldValue("location", value.value || "");
+            }}
             error={touched.location && Boolean(errors.location)}
             helperText={touched.location && errors.location}
           />

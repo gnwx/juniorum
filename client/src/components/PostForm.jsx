@@ -5,28 +5,21 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Autocomplete from "@mui/material/Autocomplete";
 
-import { options } from "../helpers/citiesAndCountries";
 import { Formik, Field, Form } from "formik";
 
 import { usePost } from "../hooks/usePost";
 import { postValidation } from "../helpers/postValidation";
+
+//
+import { salaryOptions, typeOptions } from "../helpers/constants";
+import LocationInput from "./LocationInput";
+
 const PostForm = () => {
   const { post, isLoading } = usePost();
 
   const company = JSON.parse(sessionStorage.getItem("company"));
-  const salaryOptions = [
-    { value: "1000-2000", label: "1000-2000" },
-    { value: "2000-3000", label: "2000-3000" },
-    { value: "3000-4000", label: "3000-4000" },
-    { value: "4000-5000", label: "4000-5000" },
-  ];
-  const typeOptions = [
-    { value: "Full-time", label: "Full-Time" },
-    { value: "Part-time", label: "Part-Time" },
-    { value: "Internship", label: "Internship" },
-  ];
+
   return (
     <Formik
       initialValues={{
@@ -108,22 +101,13 @@ const PostForm = () => {
             ))}
           </Field>
 
-          <Autocomplete
-            freeSolo
-            options={options}
-            onChange={(event, value) => {
-              setFieldValue("location", value?.value || "");
+          <LocationInput
+            value={values.location}
+            onChange={(value) => {
+              setFieldValue("location", value.value || "");
             }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Job location"
-                variant="outlined"
-                fullWidth
-                error={touched.location && Boolean(errors.location)}
-                helperText={touched.location && errors.location}
-              />
-            )}
+            error={touched.location && Boolean(errors.location)}
+            helperText={touched.location && errors.location}
           />
 
           <Button
