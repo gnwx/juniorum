@@ -5,6 +5,8 @@ const Post = ({ job }) => {
     <div>
       {job.company.name}
       {job.company.description}
+      {job.location}
+
       <img src={job.company.photo} />
     </div>
   );

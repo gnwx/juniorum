@@ -8,7 +8,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    const storedCompany = JSON.parse(localStorage.getItem("company"));
+    const storedCompany = JSON.parse(sessionStorage.getItem("company"));
     if (storedCompany) {
       setCompany(storedCompany);
     }
@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const setLogout = () => {
     setCompany(null);
     sessionStorage.removeItem("company");
+    sessionStorage.removeItem("JWT_TOKEN");
   };
 
   const values = { company, setLogin, setLogout };
