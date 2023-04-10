@@ -12,8 +12,9 @@ import { usePost } from "../hooks/usePost";
 import { postValidation } from "../helpers/postValidation";
 
 //
-import { salaryOptions, typeOptions } from "../helpers/constants";
+import { salaryOptions, typeOptions, positions } from "../helpers/constants";
 import LocationInput from "./LocationInput";
+import { InputLabel, Stack } from "@mui/material";
 
 const PostForm = () => {
   const { post, isLoading } = usePost();
@@ -28,7 +29,7 @@ const PostForm = () => {
         type: "",
         requirements: "",
         salary: "",
-        location: "",
+        location: company.location || "",
         company: company,
       }}
       validationSchema={postValidation}
@@ -39,85 +40,106 @@ const PostForm = () => {
     >
       {({ errors, touched, getFieldProps, values, setFieldValue }) => (
         <Form>
-          <TextField
-            {...getFieldProps("contactEmail")}
-            disabled={values.useSessionEmail}
-            label="Contact Email"
-            variant="outlined"
-            fullWidth
-            error={touched.contactEmail && Boolean(errors.contactEmail)}
-            helperText={touched.contactEmail && errors.contactEmail}
-          />
-
-          <TextField
-            {...getFieldProps("position")}
-            label="Position"
-            variant="outlined"
-            fullWidth
-            error={touched.position && Boolean(errors.position)}
-            helperText={touched.position && errors.position}
-          />
-
-          <Field
-            name="type"
-            as={Select}
-            fullWidth
-            variant="outlined"
-            error={touched.type && Boolean(errors.type)}
-          >
-            {typeOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Field>
-
-          <TextField
-            {...getFieldProps("requirements")}
-            multiline
-            minRows={6}
-            maxRows={10}
-            label="Requirements"
-            variant="outlined"
-            fullWidth
-            error={touched.requirements && Boolean(errors.requirements)}
-            helperText={touched.requirements && errors.requirements}
-          />
-
-          <Field
-            name="salary"
-            as={Select}
-            fullWidth
-            variant="outlined"
-            error={touched.salary && Boolean(errors.salary)}
-          >
-            <MenuItem value="" disabled>
-              Select a salary range
-            </MenuItem>
-            {salaryOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                ${option.label}
-              </MenuItem>
-            ))}
-          </Field>
-
-          <LocationInput
-            value={values.location}
-            onChange={(value) => {
-              setFieldValue("location", value.value || "");
+          <Stack
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              margin: 10,
             }}
-            error={touched.location && Boolean(errors.location)}
-            helperText={touched.location && errors.location}
-          />
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
           >
-            Create job
-          </Button>
+            <TextField
+              {...getFieldProps("contactEmail")}
+              disabled={values.useSessionEmail}
+              label="Contact Email"
+              variant="outlined"
+              fullWidth
+              error={touched.contactEmail && Boolean(errors.contactEmail)}
+              helperText={touched.contactEmail && errors.contactEmail}
+            />
+            <InputLabel id="position-label">Position</InputLabel>
+
+            <Field
+              name="position"
+              as={Select}
+              fullWidth
+              labelId="job-type-label"
+              variant="outlined"
+              error={touched.position && Boolean(errors.position)}
+            >
+              {positions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Field>
+
+            <InputLabel id="job-type-label">Job Type</InputLabel>
+            <Field
+              name="type"
+              as={Select}
+              fullWidth
+              variant="outlined"
+              error={touched.type && Boolean(errors.type)}
+              labelId="job-type-label"
+              sx={{ marginBottom: "1rem" }}
+            >
+              {typeOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Field>
+
+            <TextField
+              {...getFieldProps("requirements")}
+              multiline
+              minRows={6}
+              maxRows={10}
+              label="Requirements"
+              variant="outlined"
+              fullWidth
+              error={touched.requirements && Boolean(errors.requirements)}
+              helperText={touched.requirements && errors.requirements}
+            />
+            <InputLabel id="salary-label">Salary </InputLabel>
+
+            <Field
+              name="salary"
+              labelId="salary-label"
+              as={Select}
+              fullWidth
+              variant="outlined"
+              error={touched.salary && Boolean(errors.salary)}
+            >
+              <MenuItem value="" disabled>
+                Select a salary range
+              </MenuItem>
+              {salaryOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  ${option.label}
+                </MenuItem>
+              ))}
+            </Field>
+
+            <LocationInput
+              value={values.location}
+              onChange={(value) => {
+                setFieldValue("location", value.value || "");
+              }}
+              error={touched.location && Boolean(errors.location)}
+              helperText={touched.location && errors.location}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isLoading}
+            >
+              Create job
+            </Button>
+          </Stack>
         </Form>
       )}
     </Formik>

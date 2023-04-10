@@ -1,11 +1,12 @@
 import React from "react";
 import PostForm from "../components/PostForm";
+import { Stack } from "@mui/material";
 
 const CreatePost = () => {
   return (
-    <div>
+    <Stack>
       <PostForm />
-    </div>
+    </Stack>
   );
 };
 
