@@ -8,12 +8,12 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { Formik, Field, Form } from "formik";
 
-import { usePost } from "../hooks/usePost";
-import { postValidation } from "../helpers/postValidation";
+import { usePost } from "../../hooks/usePost";
+import { postValidation } from "../../helpers/postValidation";
 
 //
-import { salaryOptions, typeOptions, positions } from "../helpers/constants";
-import LocationInput from "./LocationInput";
+import { salaryOptions, typeOptions, positions } from "../../helpers/constants";
+import LocationInput from "../LocationInput";
 import { InputLabel, Stack } from "@mui/material";
 
 const PostForm = () => {

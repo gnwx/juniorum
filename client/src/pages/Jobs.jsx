@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Post from "../components/Post";
+import Post from "../components/createPost//Post";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
 

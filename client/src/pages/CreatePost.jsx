@@ -1,5 +1,5 @@
 import React from "react";
-import PostForm from "../components/PostForm";
+import PostForm from "../components/createPost/PostForm";
 import { Stack } from "@mui/material";
 
 const CreatePost = () => {

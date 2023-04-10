@@ -10,11 +10,11 @@ import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { signupValidation } from "../helpers/signupValidation";
+import { signupValidation } from "../../helpers/signupValidation";
 
-import { useSignup } from "../hooks/useSignup";
-import { useConvertToBase64 } from "../hooks/useConvertToBase64";
-import LocationInput from "./LocationInput";
+import { useSignup } from "../../hooks/useSignup";
+import { useConvertToBase64 } from "../../hooks/useConvertToBase64";
+import LocationInput from "../LocationInput";
 
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
