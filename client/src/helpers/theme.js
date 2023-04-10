@@ -17,6 +17,9 @@ export const theme = createTheme({
     background: {
       default: "#ffffff",
     },
+    text: {
+      secondary: "gray",
+    },
   },
   typography: {
     fontFamily: "Poppins",

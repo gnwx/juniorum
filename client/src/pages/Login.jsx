@@ -1,12 +1,23 @@
 import React from "react";
 import LoginForm from "../components/login/LoginForm";
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
+import Title from "../components/login/Title";
 
 const Login = () => {
   return (
-    <Box sx={{ width: 300 }}>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "70vh",
+        gap: 10,
+      }}
+    >
+      <Title />
       <LoginForm />
-    </Box>
+    </Container>
   );
 };
 
