@@ -1,12 +1,23 @@
 import React from "react";
 import PostForm from "../components/createPost/PostForm";
-import { Stack } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 const CreatePost = () => {
   return (
-    <Stack>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+      }}
+    >
+      <Box>
+        <Typography variant="h4">Create Job post</Typography>
+      </Box>
       <PostForm />
-    </Stack>
+    </Container>
   );
 };
 

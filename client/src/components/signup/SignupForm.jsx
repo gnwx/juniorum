@@ -45,7 +45,7 @@ const SignupForm = () => {
     >
       {({ values, errors, touched, getFieldProps, setFieldValue }) => (
         <Form>
-          <Stack sx={{ minWidth: 400 }} spacing={2}>
+          <Stack sx={{ width: 500 }} spacing={2}>
             <TextField
               {...getFieldProps("name")}
               label="Company Name*"

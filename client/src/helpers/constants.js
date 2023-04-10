@@ -1,8 +1,9 @@
 export const salaryOptions = [
-  { value: "1000-2000", label: "1000-2000" },
-  { value: "2000-3000", label: "2000-3000" },
-  { value: "3000-4000", label: "3000-4000" },
-  { value: "4000-5000", label: "4000-5000" },
+  { value: "30k-45k", label: "30k-45k" },
+  { value: "50k-70k", label: "50k-70k" },
+  { value: "75k-90k", label: "75k-90k" },
+  { value: "90k-100k", label: "90k-100k" },
+  { value: "100k+", label: "100k+" },
 ];
 export const typeOptions = [
   { value: "Full-time", label: "Full-Time" },

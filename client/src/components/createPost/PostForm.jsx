@@ -40,14 +40,7 @@ const PostForm = () => {
     >
       {({ errors, touched, getFieldProps, values, setFieldValue }) => (
         <Form>
-          <Stack
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              margin: 10,
-            }}
-          >
+          <Stack spacing={1} sx={{ minWidth: 400 }}>
             <TextField
               {...getFieldProps("contactEmail")}
               disabled={values.useSessionEmail}
@@ -132,6 +125,7 @@ const PostForm = () => {
             />
 
             <Button
+              size="large"
               type="submit"
               variant="contained"
               color="primary"
