@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Box,
@@ -15,7 +15,10 @@ import WorkIcon from "@mui/icons-material/Work";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import GroupIcon from "@mui/icons-material/Group";
+import DetailsDialog from "./DetailsDialog";
 const Post = ({ job }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Container
       sx={{
@@ -41,19 +44,28 @@ const Post = ({ job }) => {
           <Avatar src={job.company.photo} sx={{ width: 90, height: 90 }} />
           <Box>
             <Typography variant="h6"> {job.position} </Typography>
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" gap={2} alignItems="center">
               <Typography variant="button">{job.company.name}</Typography>
-              <Typography variant="caption">
+              <Typography
+                variant="caption"
+                sx={{ alignItems: "center", display: "inline-flex" }}
+              >
                 <GroupIcon fontSize="xs" />
                 {job.company.employees}
               </Typography>
             </Stack>
-            <Stack direction="row" spacing={1}>
-              <Typography variant="caption">
+            <Stack direction="row" spacing={2}>
+              <Typography
+                variant="caption"
+                sx={{ alignItems: "center", display: "inline-flex" }}
+              >
                 <LocationOnIcon fontSize="xs" />
                 {job.location}
               </Typography>
-              <Typography variant="caption">
+              <Typography
+                variant="caption"
+                sx={{ alignItems: "center", display: "inline-flex" }}
+              >
                 <WorkIcon fontSize="xs" />
                 {job.type}
               </Typography>
@@ -63,7 +75,7 @@ const Post = ({ job }) => {
         <Stack>
           {job.company.link.startsWith("https://www.linkedin") ? (
             <Link href={job.company.link}>
-              <LinkedInIcon />{" "}
+              <LinkedInIcon />
             </Link>
           ) : (
             <Link href={job.company.link}>
@@ -84,7 +96,7 @@ const Post = ({ job }) => {
             display: { xs: "none", sm: "block" },
             overflow: "hidden",
             textOverflow: "ellipsis",
-            width: "40rem",
+            width: "80%",
             height: 40,
           }}
         >
@@ -92,9 +104,12 @@ const Post = ({ job }) => {
         </Typography>
         <Stack>
           <Typography variant="button"> ${job.salary}/y</Typography>
-          <Button variant="contained">Details</Button>
+          <Button variant="contained" onClick={() => setIsOpen(true)}>
+            Details
+          </Button>
         </Stack>
       </Box>
+      <DetailsDialog job={job} isOpen={isOpen} setIsOpen={setIsOpen} />
     </Container>
   );
 };

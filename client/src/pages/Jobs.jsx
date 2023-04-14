@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../components/Post";
-import { Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
 
