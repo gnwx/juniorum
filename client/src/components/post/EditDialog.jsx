@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import PostForm from "../components/createPost/PostForm";
+import PostForm from "./PostForm";
 
 const EditDialog = ({ isOpen, setIsOpen, job }) => {
   return (

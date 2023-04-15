@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Post from "../components/Post";
+import Post from "../components/post/Post";
 import { Stack } from "@mui/material";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
@@ -25,7 +25,7 @@ const Jobs = () => {
       }
     }
     fetchJobPosts();
-  }, [jobPosts]);
+  }, []);
   return (
     <Stack spacing={4}>
       {jobPosts.map((job, idx) => (

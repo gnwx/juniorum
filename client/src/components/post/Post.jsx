@@ -8,9 +8,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+
+//dialogs
 import DetailsDialog from "./DetailsDialog";
 import EditDialog from "./EditDialog";
+import DeleteDialog from "./DeleteDialog";
 
 //icons
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -19,7 +22,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import GroupIcon from "@mui/icons-material/Group";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteDialog from "./DeleteDialog";
 
 const Post = ({ job }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);

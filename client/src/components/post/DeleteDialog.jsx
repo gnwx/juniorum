@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import React from "react";
-import { usePost } from "../hooks/usePost";
+import { usePost } from "../../hooks/usePost";
 
 const DeleteDialog = ({ isOpen, setIsOpen, job }) => {
   const { deletePost } = usePost();
