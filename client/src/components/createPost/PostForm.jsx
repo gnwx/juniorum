@@ -16,14 +16,21 @@ import { salaryOptions, typeOptions, positions } from "../../helpers/constants";
 import LocationInput from "../LocationInput";
 import { InputLabel, Stack } from "@mui/material";
 
-const PostForm = () => {
-  const { post, isLoading } = usePost();
+const PostForm = ({ isEditing, job }) => {
+  const { post, edit, isLoading } = usePost();
 
   const company = JSON.parse(sessionStorage.getItem("company"));
-
-  return (
-    <Formik
-      initialValues={{
+  const initialValues = isEditing
+    ? {
+        contactEmail: job.company.email || "",
+        position: job.position,
+        type: job.type,
+        requirements: job.requirements,
+        salary: job.salary,
+        location: job.location,
+        company: job.company,
+      }
+    : {
         contactEmail: company.email || "",
         position: "",
         type: "",
@@ -31,10 +38,14 @@ const PostForm = () => {
         salary: "",
         location: company.location || "",
         company: company,
-      }}
+      };
+
+  return (
+    <Formik
+      initialValues={initialValues}
       validationSchema={postValidation}
       onSubmit={(values, { resetForm }) => {
-        post(values);
+        isEditing ? edit(job._id, values) : post(values);
         resetForm();
       }}
     >
@@ -131,7 +142,7 @@ const PostForm = () => {
               color="primary"
               disabled={isLoading}
             >
-              Create job
+              {isEditing ? "Edit" : "Create"} job
             </Button>
           </Stack>
         </Form>

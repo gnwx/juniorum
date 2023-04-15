@@ -25,7 +25,7 @@ const Jobs = () => {
       }
     }
     fetchJobPosts();
-  }, []);
+  }, [jobPosts]);
   return (
     <Stack spacing={4}>
       {jobPosts.map((job, idx) => (

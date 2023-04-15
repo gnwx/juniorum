@@ -1,4 +1,5 @@
 export const salaryOptions = [
+  { value: "20k", label: "20k" },
   { value: "30k-45k", label: "30k-45k" },
   { value: "50k-70k", label: "50k-70k" },
   { value: "75k-90k", label: "75k-90k" },

@@ -14,13 +14,16 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+
+//icons
 import GroupIcon from "@mui/icons-material/Group";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
+
 const DetailsDialog = ({ job, isOpen, setIsOpen }) => {
-  const reqArr = job.requirements.split("-");
+  const reqArr = job.requirements.split("*");
   if (reqArr[0] === "") {
     reqArr.shift();
   }

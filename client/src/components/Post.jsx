@@ -8,6 +8,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useAuthContext } from "../hooks/useAuthContext";
+import DetailsDialog from "./DetailsDialog";
+import EditDialog from "./EditDialog";
 
 //icons
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -15,18 +18,37 @@ import WorkIcon from "@mui/icons-material/Work";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import GroupIcon from "@mui/icons-material/Group";
-import DetailsDialog from "./DetailsDialog";
-const Post = ({ job }) => {
-  const [isOpen, setIsOpen] = useState(false);
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteDialog from "./DeleteDialog";
 
+const Post = ({ job }) => {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isEditOpen, setIsEdit] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const { company } = useAuthContext();
   return (
     <Container
       sx={{
-        backgroundColor: "#F4F8FB",
+        backgroundColor: "gray",
         width: { xs: "100%", md: 900 },
         height: 200,
       }}
     >
+      {company && job.company._id === company._id && (
+        <>
+          <Button onClick={() => setIsEdit(true)}>
+            <EditIcon />
+          </Button>
+          <Button
+            onClick={() => {
+              setIsDeleteOpen(true);
+            }}
+          >
+            Delete
+          </Button>
+        </>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -72,16 +94,15 @@ const Post = ({ job }) => {
             </Stack>
           </Box>
         </Box>
+
         <Stack>
-          {job.company.link.startsWith("https://www.linkedin") ? (
-            <Link href={job.company.link}>
+          <Link href={job.company.link}>
+            {job.company.link.startsWith("https://linkedin") ? (
               <LinkedInIcon />
-            </Link>
-          ) : (
-            <Link href={job.company.link}>
+            ) : (
               <InsertLinkIcon />
-            </Link>
-          )}
+            )}
+          </Link>
         </Stack>
       </Box>
       <Box
@@ -102,14 +123,25 @@ const Post = ({ job }) => {
         >
           {job.company.description}
         </Typography>
+
         <Stack>
           <Typography variant="button"> ${job.salary}/y</Typography>
-          <Button variant="contained" onClick={() => setIsOpen(true)}>
+          <Button variant="contained" onClick={() => setIsDetailsOpen(true)}>
             Details
           </Button>
         </Stack>
       </Box>
-      <DetailsDialog job={job} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <DetailsDialog
+        job={job}
+        isOpen={isDetailsOpen}
+        setIsOpen={setIsDetailsOpen}
+      />
+      <EditDialog job={job} isOpen={isEditOpen} setIsOpen={setIsEdit} />
+      <DeleteDialog
+        isOpen={isDeleteOpen}
+        setIsOpen={setIsDeleteOpen}
+        job={job}
+      />
     </Container>
   );
 };
