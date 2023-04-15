@@ -56,7 +56,11 @@ const deletePost = async (req, res) => {
   if (!post) {
     return res.status(400).json({ error: "No such post!" });
   }
-
+  if (post.company.toString() !== req.company._id.toString()) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to perform this action!" });
+  }
   res.status(200).json(post);
 };
 
@@ -69,6 +73,11 @@ const updatePost = async (req, res) => {
   const post = await Post.findOneAndUpdate({ _id: id }, { ...req.body });
   if (!post) {
     return res.status(404).json({ error: "No such post" });
+  }
+  if (post.company.toString() !== req.company._id.toString()) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to perform this action!" });
   }
 
   res.status(200).json(post);
