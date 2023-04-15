@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //mui componenets
 import TextField from "@mui/material/TextField";
@@ -14,12 +14,16 @@ import { postValidation } from "../../helpers/postValidation";
 //
 import { salaryOptions, typeOptions, positions } from "../../helpers/constants";
 import LocationInput from "../LocationInput";
-import { InputLabel, Stack } from "@mui/material";
+import { Alert, InputLabel, Snackbar, Stack } from "@mui/material";
 
 const PostForm = ({ isEditing, job }) => {
-  const { post, edit, isLoading } = usePost();
+  const [successMessage, setSuccessMessage] = useState("");
+  const { post, edit, isLoading, error } = usePost();
+
+  const [failMessage, setFailMessage] = useState(error);
 
   const company = JSON.parse(sessionStorage.getItem("company"));
+
   const initialValues = isEditing
     ? {
         contactEmail: job.company.email || "",
@@ -44,13 +48,46 @@ const PostForm = ({ isEditing, job }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={postValidation}
-      onSubmit={(values, { resetForm }) => {
-        isEditing ? edit(job._id, values) : post(values);
+      onSubmit={async (values, { resetForm }) => {
+        const success = await (isEditing
+          ? edit(job._id, values)
+          : post(values));
         resetForm();
+        if (success) {
+          setSuccessMessage(
+            isEditing ? "Post edited succesfully" : "Post created succesfully"
+          );
+          setFailMessage("");
+        } else {
+          setSuccessMessage("");
+          setFailMessage(
+            isEditing ? "Post edit failed" : "Post creation failed"
+          );
+        }
       }}
     >
       {({ errors, touched, getFieldProps, values, setFieldValue }) => (
         <Form>
+          <Snackbar
+            open={Boolean(successMessage)}
+            autoHideDuration={2000}
+            onClose={() => setSuccessMessage("")}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            <Alert onClose={() => setSuccessMessage("")} severity="success">
+              {successMessage}
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={Boolean(failMessage)}
+            autoHideDuration={3000}
+            onClose={() => setFailMessage("")}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          >
+            <Alert onClose={() => setFailMessage("")} severity="error">
+              {failMessage}
+            </Alert>
+          </Snackbar>
           <Stack spacing={1} sx={{ minWidth: 400 }}>
             <TextField
               {...getFieldProps("contactEmail")}

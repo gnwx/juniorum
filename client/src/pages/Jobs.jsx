@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Post from "../components/post/Post";
-import { Stack } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchJobPosts() {
       try {
@@ -20,12 +20,27 @@ const Jobs = () => {
           })
         );
         setJobPosts(jobWithCompanyDetails);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     }
     fetchJobPosts();
   }, []);
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          height: "80vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <Stack spacing={4}>
       {jobPosts.map((job, idx) => (

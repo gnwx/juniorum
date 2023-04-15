@@ -22,6 +22,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import GroupIcon from "@mui/icons-material/Group";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Post = ({ job }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -32,25 +33,11 @@ const Post = ({ job }) => {
   return (
     <Container
       sx={{
-        backgroundColor: "gray",
+        backgroundColor: "#edf6fa",
         width: { xs: "100%", md: 900 },
         height: 200,
       }}
     >
-      {company && job.company._id === company._id && (
-        <>
-          <Button onClick={() => setIsEdit(true)}>
-            <EditIcon />
-          </Button>
-          <Button
-            onClick={() => {
-              setIsDeleteOpen(true);
-            }}
-          >
-            Delete
-          </Button>
-        </>
-      )}
       <Box
         sx={{
           display: "flex",
@@ -97,7 +84,7 @@ const Post = ({ job }) => {
           </Box>
         </Box>
 
-        <Stack>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link href={job.company.link}>
             {job.company.link.startsWith("https://linkedin") ? (
               <LinkedInIcon />
@@ -105,7 +92,22 @@ const Post = ({ job }) => {
               <InsertLinkIcon />
             )}
           </Link>
-        </Stack>
+          {company && job.company._id === company._id && (
+            <>
+              <Button onClick={() => setIsEdit(true)}>
+                <EditIcon fontSize="small" />
+              </Button>
+              <Button
+                color="error"
+                onClick={() => {
+                  setIsDeleteOpen(true);
+                }}
+              >
+                <DeleteIcon fontSize="small" />
+              </Button>
+            </>
+          )}
+        </Box>
       </Box>
       <Box
         sx={{

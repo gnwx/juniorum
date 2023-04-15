@@ -1,9 +1,9 @@
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Link } from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-import logo from "../assets/logo.png";
+import logo from "/logo.png";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
@@ -17,9 +17,12 @@ const Navbar = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        marginY: 2,
       }}
     >
-      <Avatar src={logo} sx={{ width: 80, height: 80 }} />
+      <Link href="/">
+        <Avatar src={logo} sx={{ width: 80, height: 80 }} />
+      </Link>
       {company ? (
         <Box sx={{ display: "flex", gap: 2 }}>
           <Button href="/create" variant="outlined" startIcon={<AddIcon />}>

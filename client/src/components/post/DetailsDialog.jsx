@@ -108,7 +108,7 @@ const DetailsDialog = ({ job, isOpen, setIsOpen }) => {
           ))}
         </List>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ gap: 1 }}>
         <Button variant="outlined" href={`mailto:${job.contactEmail}`}>
           Contact
         </Button>

@@ -21,11 +21,11 @@ export const usePost = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      return false;
     }
     if (response.ok) {
       setIsLoading(false);
-      console.log("Post created!");
-      console.log(json);
+      return true;
     }
   };
 
@@ -45,11 +45,11 @@ export const usePost = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      return false;
     }
     if (response.ok) {
       setIsLoading(false);
-      console.log("post edited");
-      console.log(json);
+      return true;
     }
   };
   const deletePost = async (id) => {
@@ -67,11 +67,11 @@ export const usePost = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      return false;
     }
     if (response.ok) {
       setIsLoading(false);
-      console.log("post deleted");
-      console.log(json);
+      return true;
     }
   };
 
