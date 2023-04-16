@@ -1,4 +1,4 @@
-import { Avatar, Box, Link } from "@mui/material";
+import { Avatar, Box, Container, Link, Stack } from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -11,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 const Navbar = () => {
   const { company, setLogout } = useAuthContext();
   return (
-    <Box
+    <Container
       sx={{
         height: 60,
         display: "flex",
@@ -34,12 +34,16 @@ const Navbar = () => {
           </Button>
         </Box>
       ) : (
-        <>
-          <Button href="/login">Log In</Button>
-          <Button href="/signup">Sign up</Button>
-        </>
+        <Stack direction="row" gap={2}>
+          <Button variant="outlined" href="/login">
+            Log In
+          </Button>
+          <Button variant="contained" href="/jobs">
+            Browse Jobs
+          </Button>
+        </Stack>
       )}
-    </Box>
+    </Container>
   );
 };
 

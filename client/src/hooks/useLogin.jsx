@@ -22,11 +22,13 @@ export const useLogin = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      return false;
     }
     if (response.ok) {
       setIsLoading(false);
       sessionStorage.setItem("JWT_TOKEN", JSON.stringify(json.token));
       setLogin(json.company);
+      return true;
     }
   };
 

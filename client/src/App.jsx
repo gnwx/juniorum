@@ -10,6 +10,7 @@ import Jobs from "./pages/Jobs";
 import Navbar from "./components/Navbar";
 
 import { useAuthContext } from "./hooks/useAuthContext";
+import Home from "./pages/Home";
 
 const App = () => {
   const { company } = useAuthContext();
@@ -18,7 +19,8 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Jobs />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route
           path="/login"
           element={!company ? <Login /> : <Navigate to="/" />}

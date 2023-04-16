@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Alert,
   Button,
@@ -8,6 +9,7 @@ import {
   DialogTitle,
   Snackbar,
 } from "@mui/material";
+
 import { usePost } from "../../hooks/usePost";
 
 const DeleteDialog = ({ isOpen, setIsOpen, job }) => {
@@ -50,7 +52,7 @@ const DeleteDialog = ({ isOpen, setIsOpen, job }) => {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         >
           <Alert severity="error" onClose={() => {}}>
-            Post deletion failed.
+            Post deletion failed!
           </Alert>
         </Snackbar>
       )}
