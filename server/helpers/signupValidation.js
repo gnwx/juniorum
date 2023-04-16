@@ -25,7 +25,7 @@ const signupCompanyValidators = [
     .not()
     .isEmpty()
     .withMessage("Number of employees is required.")
-    .isInt({ gt: 0 })
+    .isInt({ gt: 0, lt: 101 })
     .withMessage("Number of employees must be greater than 0."),
   check("location").not().isEmpty().withMessage("Location is required."),
   check("link")
