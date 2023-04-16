@@ -88,7 +88,7 @@ const PostForm = ({ isEditing, job }) => {
               {failMessage}
             </Alert>
           </Snackbar>
-          <Stack spacing={1} sx={{ minWidth: 400 }}>
+          <Stack spacing={1} sx={{ minWidth: 600 }}>
             <TextField
               {...getFieldProps("contactEmail")}
               disabled={values.useSessionEmail}

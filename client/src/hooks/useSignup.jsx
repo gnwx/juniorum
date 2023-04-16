@@ -8,20 +8,25 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/company/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const json = await response.json();
-    if (!response.ok) {
+    try {
+      const response = await fetch("http://localhost:4000/api/company/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const json = await response.json();
+      if (!response.ok) {
+        setIsLoading(false);
+        setError(json.error);
+        return false;
+      }
+      if (response.ok) {
+        setIsLoading(false);
+        return true;
+      }
+    } catch (error) {
       setIsLoading(false);
-      setError(json.error);
-    }
-    if (response.ok) {
-      setIsLoading(false);
-      console.log("Company Created");
-      console.log(json);
+      setError("Something went wrong!");
     }
   };
 

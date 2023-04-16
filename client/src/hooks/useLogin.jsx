@@ -11,24 +11,30 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/company/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      setIsLoading(false);
-      setError(json.error);
-      return false;
-    }
-    if (response.ok) {
+    try {
+      const response = await fetch("http://localhost:4000/api/company/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const json = await response.json();
+      if (!response.ok) {
+        setIsLoading(false);
+        setError(json.error);
+        return false;
+      }
+
       setIsLoading(false);
       sessionStorage.setItem("JWT_TOKEN", JSON.stringify(json.token));
       setLogin(json.company);
       return true;
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+      return false;
     }
   };
 

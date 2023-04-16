@@ -33,7 +33,8 @@ const Post = ({ job }) => {
   return (
     <Container
       sx={{
-        backgroundColor: "#edf6fa",
+        backgroundColor: "#BBD1F3",
+        borderRadius: 2,
         width: { xs: "100%", md: 900 },
         height: 200,
       }}

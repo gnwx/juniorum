@@ -81,15 +81,13 @@ const DetailsDialog = ({ job, isOpen, setIsOpen }) => {
             </Box>
           </Box>
           <Stack>
-            {job.company.link.startsWith("https://www.linkedin") ? (
-              <Link href={job.company.link}>
+            <Link href={job.company.link}>
+              {job.company.link.startsWith("https://linkedin") ? (
                 <LinkedInIcon />
-              </Link>
-            ) : (
-              <Link href={job.company.link}>
+              ) : (
                 <InsertLinkIcon />
-              </Link>
-            )}
+              )}
+            </Link>
             ${job.salary}/Y
           </Stack>
         </Box>

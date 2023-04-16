@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../components/post/Post";
-import { Box, CircularProgress, Stack } from "@mui/material";
+import { Box, CircularProgress, Container, Stack } from "@mui/material";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,11 +42,11 @@ const Jobs = () => {
     );
   }
   return (
-    <Stack spacing={4}>
+    <Container sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
       {jobPosts.map((job, idx) => (
         <Post key={idx} job={job} />
       ))}
-    </Stack>
+    </Container>
   );
 };
 

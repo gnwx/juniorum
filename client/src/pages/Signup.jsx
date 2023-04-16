@@ -6,14 +6,15 @@ const Signup = () => {
     <Container
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", lg: "row" },
+        flexDirection: "column",
         justifyContent: "center",
+        alignItems: "center",
         minHeight: "70vh",
-        gap: 10,
+        gap: 2,
       }}
     >
       <Box>
-        <Typography variant="h4">Register to Juniorum</Typography>
+        <Typography variant="h4">Sign up</Typography>
       </Box>
       <SignupForm />
     </Container>

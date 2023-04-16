@@ -7,10 +7,10 @@ const CreatePost = () => {
     <Container
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", lg: "row" },
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 10,
+        gap: 5,
       }}
     >
       <Box>

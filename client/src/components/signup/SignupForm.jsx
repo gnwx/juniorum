@@ -15,9 +15,11 @@ import { signupValidation } from "../../helpers/signupValidation";
 import { useSignup } from "../../hooks/useSignup";
 import { useConvertToBase64 } from "../../hooks/useConvertToBase64";
 import LocationInput from "../LocationInput";
-import { InputLabel, Stack } from "@mui/material";
+import { Alert, InputLabel, Snackbar, Stack } from "@mui/material";
 
 const SignupForm = () => {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failMessage, setFailMessage] = useState("");
   const { signup, isLoading, error } = useSignup();
   const { convertToBase64, photoBase64 } = useConvertToBase64();
 
@@ -34,17 +36,49 @@ const SignupForm = () => {
         photo: null,
       }}
       validationSchema={signupValidation}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={async (values, { resetForm }) => {
         const updatedValues = {
           ...values,
           photo: photoBase64,
         };
-        signup(updatedValues);
+        const success = await signup(updatedValues);
+        if (success) {
+          setSuccessMessage("Created company succesfully!");
+          setFailMessage("");
+        } else {
+          setSuccessMessage("");
+          setFailMessage("Something went wrong!");
+        }
+
         resetForm();
       }}
     >
       {({ values, errors, touched, getFieldProps, setFieldValue }) => (
         <Form>
+          {successMessage && (
+            <Snackbar
+              open={!!successMessage}
+              autoHideDuration={3000}
+              onClose={() => setSuccessMessage("")}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            >
+              <Alert onClose={() => setSuccessMessage("")} severity="success">
+                {successMessage}
+              </Alert>
+            </Snackbar>
+          )}
+          {failMessage && (
+            <Snackbar
+              open={!!failMessage}
+              autoHideDuration={3000}
+              onClose={() => setFailMessage("")}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            >
+              <Alert onClose={() => setFailMessage("")} severity="error">
+                {failMessage}
+              </Alert>
+            </Snackbar>
+          )}
           <Stack sx={{ width: 500 }} spacing={2}>
             <TextField
               {...getFieldProps("name")}

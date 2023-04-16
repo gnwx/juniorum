@@ -20,39 +20,43 @@ const LoginForm = () => {
     <Formik
       initialValues={{ email: "", password: "" }}
       validationSchema={loginValidation}
-      onSubmit={(values) => {
-        const success = login(values);
+      onSubmit={async (values) => {
+        const success = await login(values);
         if (success) {
-          setSuccessMessage("Logged in succesfully!");
+          setSuccessMessage("Logged in successfully!");
           setFailMessage("");
         } else {
           setSuccessMessage("");
-          setFailMessage("Failed when logging!");
+          setFailMessage("Email or password wrong!");
         }
       }}
     >
       {({ errors, touched, getFieldProps }) => (
         <Form>
-          <Snackbar
-            open={Boolean(successMessage)}
-            autoHideDuration={2000}
-            onClose={() => setSuccessMessage("")}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          >
-            <Alert onClose={() => setSuccessMessage("")} severity="success">
-              {successMessage}
-            </Alert>
-          </Snackbar>
-          <Snackbar
-            open={Boolean(failMessage)}
-            autoHideDuration={3000}
-            onClose={() => setFailMessage("")}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          >
-            <Alert onClose={() => setFailMessage("")} severity="error">
-              {failMessage}
-            </Alert>
-          </Snackbar>
+          {successMessage && (
+            <Snackbar
+              open={!!successMessage}
+              autoHideDuration={3000}
+              onClose={() => setSuccessMessage("")}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            >
+              <Alert onClose={() => setSuccessMessage("")} severity="success">
+                {successMessage}
+              </Alert>
+            </Snackbar>
+          )}
+          {failMessage && (
+            <Snackbar
+              open={!!failMessage}
+              autoHideDuration={3000}
+              onClose={() => setFailMessage("")}
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            >
+              <Alert onClose={() => setFailMessage("")} severity="error">
+                {failMessage}
+              </Alert>
+            </Snackbar>
+          )}
           <Stack spacing={2}>
             <TextField
               {...getFieldProps("email")}
@@ -82,7 +86,7 @@ const LoginForm = () => {
               color="primary"
               disabled={isLoading}
             >
-              Login
+              {isLoading ? "Submitting..." : "Login"}
             </Button>
 
             {error && <div>{error} </div>}

@@ -19,7 +19,10 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={company ? <Navigate to="/jobs" /> : <Home />}
+        />
         <Route path="/jobs" element={<Jobs />} />
         <Route
           path="/login"
