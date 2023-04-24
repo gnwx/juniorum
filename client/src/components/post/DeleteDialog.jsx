@@ -28,7 +28,6 @@ const DeleteDialog = ({ isOpen, setIsOpen, job }) => {
     <>
       <Dialog onClose={() => setIsOpen(false)} open={isOpen}>
         <DialogTitle>Do you want to delete "{job.position}" post? </DialogTitle>
-        <DialogContent></DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Yes</Button>
           <Button onClick={() => setIsOpen(false)}>No</Button>

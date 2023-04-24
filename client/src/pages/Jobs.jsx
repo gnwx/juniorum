@@ -4,16 +4,18 @@ import { Box, CircularProgress, Container, Stack } from "@mui/material";
 const Jobs = () => {
   const [jobPosts, setJobPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
     async function fetchJobPosts() {
       try {
-        const response = await fetch("http://localhost:4000/api/posts");
+        const response = await fetch(`${baseUrl}/api/posts`);
         const posts = await response.json();
 
         const jobWithCompanyDetails = await Promise.all(
           posts.map(async (post) => {
             const companyResponse = await fetch(
-              `http://localhost:4000/api/company/${post.company}`
+              `${baseUrl}/api/company/${post.company}`
             );
             const company = await companyResponse.json();
             return { ...post, company };

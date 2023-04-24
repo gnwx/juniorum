@@ -4,12 +4,13 @@ export const usePost = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const token = "" || JSON.parse(sessionStorage.getItem("JWT_TOKEN"));
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const post = async (values) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://localhost:4000/api/posts", {
+    const response = await fetch(`${baseUrl}/api/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +34,7 @@ export const usePost = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch(`http://localhost:4000/api/posts/${id}`, {
+    const response = await fetch(`${baseUrl}/api/posts/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export const usePost = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch(`http://localhost:4000/api/posts/${id}`, {
+    const response = await fetch(`${baseUrl}/api/posts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

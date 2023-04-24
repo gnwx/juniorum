@@ -3,13 +3,13 @@ import { useState } from "react";
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const signup = async (values) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:4000/api/company/signup", {
+      const response = await fetch(`${baseUrl}/api/company/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
